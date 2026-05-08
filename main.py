@@ -1,55 +1,78 @@
-from batiment import creer_batiment, afficher_batiment
+import matplotlib.pyplot as plt
 
-from cout import mettre_a_jour_couts
+from batiment import creer_batiment
 
-from bellman_ford import trouver_chemin_sur
+from agents import creer_agents
 
+from simulation import lancer_simulation
 
+from evenements import (
+    declencher_incendie,
+    propager_fumee
+)
+from statistiques import (
+    calculer_statistiques,
+    afficher_statistiques
+)
+
+plt.ion()
 # ==================================================
-# Création bâtiment
+# CRÉATION DU BÂTIMENT
 # ==================================================
 
 G = creer_batiment()
 
 
 # ==================================================
-# Simulation danger
-G["Couloir1"]["Sortie1"]["fumee"] = 5
-
-G["A"]["Couloir1"]["congestion"] = 3
-
-
+# ÉVÉNEMENTS
 # ==================================================
-# Mise à jour des coûts
 
-mettre_a_jour_couts(G)
-
-
-# ==================================================
-# Recherche chemin sûr
-
-resultat = trouver_chemin_sur(
+declencher_incendie(
     G,
-    source="A",
-    sorties=["Sortie1", "Sortie2"]
+    "Couloir1",
+    "Sortie1",
+    intensite=5
 )
 
-
-# ==================================================
-# Résultat
-
-print("\n===== CHEMIN LE PLUS SÛR =====")
-
-print("Source :", resultat["source"])
-
-print("Sortie choisie :", resultat["sortie"])
-
-print("Chemin :", resultat["chemin"])
-
-print("Coût total :", resultat["cout_total"])
+propager_fumee(G)
 
 
 # ==================================================
-# Affichage
+# CRÉATION DES AGENTS
+# ==================================================
 
-afficher_batiment(G)
+agents = creer_agents()
+
+
+# ==================================================
+# FENÊTRE GRAPHIQUE
+# ==================================================
+
+plt.figure(figsize=(10, 7))
+
+
+# ==================================================
+# LANCEMENT SIMULATION
+# ==================================================
+
+lancer_simulation(
+    G,
+    agents,
+    iterations=6
+)
+# ==================================================
+# STATISTIQUES
+# ==================================================
+""" stats = calculer_statistiques(
+    agents,
+    temps_total=6
+)
+
+afficher_statistiques(stats)"""
+
+
+# ==================================================
+# GARDER FENÊTRE OUVERTE
+# ==================================================
+
+plt.show()
