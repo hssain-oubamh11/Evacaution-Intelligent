@@ -4,12 +4,9 @@ import time
 from cout import mettre_a_jour_couts
 from visualisation import afficher_simulation # Optionnel : pour visualiser la simulation
 import time
-
-
 # ==================================================
 # CALCUL DES CHEMINS
-# ==================================================
-
+# ==================
 def calculer_chemins_agents(G, agents):
 
     sorties = ["Sortie1", "Sortie2"]

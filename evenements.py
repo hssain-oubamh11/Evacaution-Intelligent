@@ -13,7 +13,7 @@ def declencher_incendie(
     G[u][v]["fumee"] = intensite
 
     print(
-        f"\n🔥 Incendie sur l'arête "
+        f"\n Incendie sur l'arête!!!! "
         f"{u} -> {v}"
     )
 
@@ -54,7 +54,7 @@ def propager_fumee(G):
 
         G[u][v]["fumee"] += 1
 
-    print("\n💨 Propagation de fumée")
+    print("\n Propagation de fumée")
 
 
 # ==================================================
@@ -77,5 +77,5 @@ def bloquer_sortie(
         G[voisin][sortie]["fumee"] = 100
 
     print(
-        f"\n⛔ Sortie bloquée : {sortie}"
+        f"\n Sortie bloquée : {sortie}"
     )
