@@ -23,28 +23,16 @@ def declencher_incendie(
 # ==================================================
 
 def propager_fumee(G):
-
     nouvelles_fumees = []
-
-    # --------------------------------------------------
     # Parcours arêtes
-    # --------------------------------------------------
-
     for u, v, data in G.edges(data=True):
-
         fumee = data["fumee"]
-
         # Si fumée présente
         if fumee > 0:
-
             # Propagation voisins
             for voisin in G.neighbors(v):
-
                 if voisin != u:
-
-                    nouvelles_fumees.append(
-                        (v, voisin)
-                    )
+                    nouvelles_fumees.append((v, voisin))
 
     # --------------------------------------------------
     # Ajouter fumée

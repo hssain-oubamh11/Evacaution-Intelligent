@@ -1,5 +1,6 @@
 import networkx as nx
 import matplotlib.pyplot as plt
+from cout import mettre_a_jour_couts
 def creer_batiment():
     G = nx.Graph()
 
@@ -12,7 +13,14 @@ def creer_batiment():
         "Sortie1", "Sortie2"
     ]
 
-    G.add_nodes_from(salles)
+    for salle in salles:
+     G.add_node(
+        salle,
+        fumee=0,
+        temperature=20,
+        congestion=0,
+        danger=0
+    )
 
     # -------------------------
     # Ajout des connexions
@@ -147,11 +155,10 @@ def afficher_batiment(G):
         fontsize=15,
         fontweight="bold"
     )
-
     plt.legend(scatterpoints=1)
     plt.axis("off")
     plt.show()
-from cout import mettre_a_jour_couts
+
 
 
 # ==========================================

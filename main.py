@@ -6,6 +6,12 @@ from agents import creer_agents
 
 from simulation import lancer_simulation
 
+from ia.gnn import (
+    convertir_graphe_pyg,
+    creer_features_noeuds,
+    ModeleGCN
+)
+
 from evenements import (
     declencher_incendie,
     propager_fumee
@@ -16,16 +22,28 @@ from statistiques import (
 )
 
 plt.ion()
-# ==================================================
-# CRÉATION DU BÂTIMENT
-# ==================================================
+#==================================================
+# CRÉATION DU Graphe (BÂTIMENT)
+G = creer_batiment()   
+print(G.nodes(data=True)) #pour afficher les noeuds et leurs attributs
+#===========================
+# CONVERSION GRAPHE POUR GNN
+data = convertir_graphe_pyg(G)
 
-G = creer_batiment()
+# créer les features pour les noeuds
+x=creer_features_noeuds(G)
+
+#============================
+#Modèle GCN
+modele = ModeleGCN()
+#============================
+# prédiction 
+prediction = modele(x,data.edge_index)
+print(prediction)
 
 
 # ==================================================
 # ÉVÉNEMENTS
-# ==================================================
 
 declencher_incendie(
     G,
@@ -48,18 +66,19 @@ agents = creer_agents()
 # FENÊTRE GRAPHIQUE
 # ==================================================
 
-plt.figure(figsize=(10, 7))
+#plt.figure(figsize=(10, 7))
 
 
 # ==================================================
 # LANCEMENT SIMULATION
 # ==================================================
-
-lancer_simulation(
+""" lancer_simulation(
     G,
     agents,
     iterations=6
 )
+"""
+
 # ==================================================
 # STATISTIQUES
 # ==================================================
@@ -75,4 +94,4 @@ afficher_statistiques(stats)"""
 # GARDER FENÊTRE OUVERTE
 # ==================================================
 
-plt.show()
+#plt.show()
